@@ -1,36 +1,71 @@
-from google import genai
+import sys
 import os
-import tkinter
+from google import genai
 
-client = genai.Client(api_key=os.getenv("GEMINI_API_KEY"))
+# Remove current directory from sys.path temporarily so "import tkinter"
+# imports the system tkinter module instead of this local file.
+_curdir = os.path.dirname(__file__) or os.getcwd()
+_removed = False
+if _curdir in sys.path:
+    sys.path.remove(_curdir)
+    _removed = True
 
-chat=client.chats.create(model="gemini-2.5-flash")
+import tkinter as tk
 
-file = client.files.upload(file="FIT 2107 Reflection - Jijendran.pdf")
+# restore sys.path
+if _removed:
+    sys.path.insert(0, _curdir)
 
-res = client.models.generate_content(
-    model="gemini-2.5-flash",
-    contents=["Summarise what is needed of me from this document",file]
-)
+def create_chat_window():
+    root = tk.Tk()
+    root.title("Simple Chat")
+    root.geometry("600x400")
 
-tk = tkinter.Tk()
-frame = tkinter.Frame(tk, relief="ridge", borderwidth=2)
-frame.pack(fill = "both", expand=1)
-label = tkinter.Label(frame, text=res.text) # type: ignore
-label.pack(fill = "x", expand=1)
+    frame = tk.Frame(root, relief="ridge", borderwidth=2)
+    frame.pack(fill="both", expand=1, padx=6, pady=6)
 
-tk.mainloop()
+    # Read-only text area for messages
+    text_display = tk.Text(frame, wrap="word", state="disabled")
+    text_display.pack(fill="both", expand=1, padx=4, pady=(4,2))
 
+    # Bottom frame for entry + send button
+    bottom = tk.Frame(frame)
+    bottom.pack(fill="x", pady=4)
 
-"""
-import tkinter
-from tkinter.constants import *
-tk = tkinter.Tk()
-frame = tkinter.Frame(tk, relief=RIDGE, borderwidth=2)
-frame.pack(fill=BOTH,expand=1)
-label = tkinter.Label(frame, text="Hello, World")
-label.pack(fill=X, expand=1)
-button = tkinter.Button(frame,text="Exit",command=tk.destroy)
-button.pack(side=BOTTOM)
-tk.mainloop()
-"""
+    entry = tk.Entry(bottom)
+    entry.pack(side="left", fill="x", expand=1, padx=(4,2))
+
+    def append_message(msg: str):
+        text_display.config(state="normal")
+        text_display.insert("end", msg + "\n")
+        text_display.config(state="disabled")
+        text_display.see("end")
+
+    def send_message(event=None):
+        msg = entry.get().strip()
+        if not msg:
+            return "break"
+        append_message("You: " + msg)
+        ai_reply = get_message(msg)
+        append_message("AI: " + ai_reply)
+        entry.delete(0, "end")
+        return "break"
+    
+    def get_message(prompt):
+        client = genai.Client(api_key=os.getenv("GEMINI_API_KEY"))
+
+        chat=client.chats.create(model="gemini-2.5-flash")
+
+        res = chat.send_message(prompt)
+        return str(res.text)
+
+    send_btn = tk.Button(bottom, text="Send", command=send_message)
+    send_btn.pack(side="right", padx=(2,4))
+
+    entry.bind("<Return>", send_message)
+    entry.focus_set()
+
+    root.mainloop()
+
+if __name__ == "__main__":
+    create_chat_window()
