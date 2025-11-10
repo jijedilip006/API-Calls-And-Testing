@@ -1,3 +1,11 @@
+"""
+A simple chat interface built with Tkinter.
+Provides a text display area and input field with both button and Enter key support for sending messages.
+
+Note: This file's name conflicts with the standard library tkinter module,
+so we use sys.path manipulation to ensure correct imports.
+"""
+
 import sys
 import os
 
@@ -16,6 +24,18 @@ if _removed:
     sys.path.insert(0, _curdir)
 
 def create_chat_window():
+    """
+    Creates and displays the main chat window interface.
+    
+    Window contains:
+    - A read-only Text widget for displaying messages
+    - An Entry widget for user input
+    - A Send button
+    - Support for sending messages via Enter key
+    
+    Returns:
+        None
+    """
     root = tk.Tk()
     root.title("Simple Chat")
     root.geometry("600x400")
@@ -35,12 +55,37 @@ def create_chat_window():
     entry.pack(side="left", fill="x", expand=1, padx=(4,2))
 
     def append_message(msg: str):
+        """
+        Adds a new message to the text display area.
+        
+        Args:
+            msg (str): The message to be displayed
+            
+        Side effects:
+            - Temporarily enables text widget for insertion
+            - Adds message with newline
+            - Scrolls to show latest message
+        """
         text_display.config(state="normal")
         text_display.insert("end", msg + "\n")
         text_display.config(state="disabled")
         text_display.see("end")
 
     def send_message(event=None):
+        """
+        Handles sending of messages from the input field.
+        
+        Args:
+            event: Optional key event when triggered by Enter key
+            
+        Returns:
+            str: "break" to prevent default Enter key behavior
+            
+        Side effects:
+            - Gets text from entry
+            - Clears entry after sending
+            - Displays message in text area
+        """
         msg = entry.get().strip()
         if not msg:
             return "break"
