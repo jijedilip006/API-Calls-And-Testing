@@ -1,5 +1,5 @@
 This is small project that I created to discover Gemini API calls and the different features using it. 
-The project may develop into a chat window where users can upload files to the window and ask questions in relation to the documents uploaded which will use the API to respond with
+The project is a small one to help me with the learning curve using API and tkinter integration
 
 # Before Running the code
 In the terminal of your IDE run the following:
