@@ -74,4 +74,14 @@ Use the name GEMINI_API_KEY (matches the code in this repo). Keep this key secre
 ## Security note
 - Treat this key like a password. Do not paste it into public places or commit it to repositories. Use secrets managers for production systems.
 
+# Before Running the code
+In the terminal of your IDE run the following:
+```
+pip install --user google-genai
+```
+If that does not work or you encounter an error, try:
+```
+pip3 install --user google-genai
+```
+
 **To run the app head into the App folder and run main.py**
