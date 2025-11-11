@@ -1,5 +1,7 @@
 This is small project that I created to discover Gemini API calls and the different features using it. 
-The project may develope into a chat window where users can upload files to the window and ask questions in relation to the documents uploaded which will use the API to respond with
+The project may develop into a chat window where users can upload files to the window and ask questions in relation to the documents uploaded which will use the API to respond with
+
+##### **Note: This project is not a deployed project and all commands below are to be run within an IDE that supports python (for example: VS Code)**
 
 
 ### Getting the API key
