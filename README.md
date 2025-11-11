@@ -1,8 +1,15 @@
 This is small project that I created to discover Gemini API calls and the different features using it. 
 The project may develop into a chat window where users can upload files to the window and ask questions in relation to the documents uploaded which will use the API to respond with
 
-
-
+# Before Running the code
+In the terminal of your IDE run the following:
+```
+pip install --user google-genai
+```
+If that does not work or you encounter an error, try:
+```
+pip3 install --user google-genai
+```
 
 ### Getting the API key
 
@@ -74,14 +81,5 @@ Use the name GEMINI_API_KEY (matches the code in this repo). Keep this key secre
 ## Security note
 - Treat this key like a password. Do not paste it into public places or commit it to repositories. Use secrets managers for production systems.
 
-# Before Running the code
-In the terminal of your IDE run the following:
-```
-pip install --user google-genai
-```
-If that does not work or you encounter an error, try:
-```
-pip3 install --user google-genai
-```
 
 **To run the app head into the App folder and run main.py**
