@@ -1,0 +1,1 @@
+This folder contains the raw files that was created for the initial learning curve relating to API calls and the integration with the Tkinter interface. The files were then used as reference to create the main App folder in which the primary file to be run is present
