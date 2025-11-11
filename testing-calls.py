@@ -89,8 +89,7 @@ def create_chat_window():
         if not msg:
             return "break"
         append_message("You: " + msg)
-        ai_reply = get_message(msg)
-        append_message("AI: " + ai_reply)
+        get_message(msg)
         entry.delete(0, "end")
         return "break"
     
@@ -111,8 +110,8 @@ def create_chat_window():
 
         chat=client.chats.create(model="gemini-2.5-flash")
 
-        res = chat.send_message(prompt)
-        return str(res.text)
+        response = chat.send_message(prompt)
+        append_message("AI: \n" + str(response.text))
 
     send_btn = tk.Button(bottom, text="Send", command=send_message)
     send_btn.pack(side="right", padx=(2,4))
