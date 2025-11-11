@@ -1,6 +1,10 @@
 This is small project that I created to discover Gemini API calls and the different features using it. 
 The project may develope into a chat window where users can upload files to the window and ask questions in relation to the documents uploaded which will use the API to respond with
 
+
+### Getting the API key
+
+Head into https://aistudio.google.com/api-keys in any web browser to aquire your Gemini API key and ensure that it is the 2.5 flash model since this code uses that specific model to run
 # Setting the API key as an environment variable
 
 Use the name GEMINI_API_KEY (matches the code in this repo). Keep this key secret and never commit it to source control.
